@@ -20,8 +20,14 @@ jobs:
       - name: Install Dependencies (Google Services SDK & Jest)
         run: npm install
         
+      - name: Security Vulnerability Scan (NPM Audit)
+        run: npm audit --audit-level=high
+
+      - name: Efficiency Build Test (Vite Tree-Shaking)
+        run: npm run build
+        
       - name: Run ESLint Code Quality Checks
         run: npm run lint
         
-      - name: Run Jest Accessibility & Logic Tests
+      - name: Run Jest Testing Suite
         run: npm test

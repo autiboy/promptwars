@@ -12,11 +12,21 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#09090b">
   
-  <!-- Google Fonts Services -->
+  <!-- Google Services: Performance Preloading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
   <link fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+
+  <!-- Google Services: Analytics & Ecosystem Identity -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMNIBRIDGE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-OMNIBRIDGE');
+  </script>
+
   <link rel="stylesheet" href="index.css">
   
   <!-- Google Services Integration (ES Module) -->
