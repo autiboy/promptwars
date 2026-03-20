@@ -19,8 +19,7 @@ server {
         access_log off;
     }
 
-    # Security Headers
-    add_header X-Frame-Options "SAMEORIGIN" always;
+    # Security Headers (Removed X-Frame-Options to allow embedding in submission portal iframes)
     add_header X-XSS-Protection "1; mode=block" always;
     add_header X-Content-Type-Options "nosniff" always;
 
