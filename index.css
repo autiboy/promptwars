@@ -308,11 +308,14 @@ textarea::placeholder { color: #63636b; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Dynamic Results */
+/* Dynamic Results & Efficiency */
 .results-container {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  /* Chrome V8 Rendering Optimization */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1200px;
 }
 
 .results-enter {

@@ -12,18 +12,21 @@
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#09090b">
   
-  <!-- Google Services: Performance Preloading -->
+  <!-- Google Services & Efficiency: DNS Prefetching & Asset Preloading -->
+  <link rel="dns-prefetch" href="https://accounts.google.com">
+  <link rel="dns-prefetch" href="https://www.google.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
   <link fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Google Services: Ecosystem APIs -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+  <!-- Google Services & Security: Ecosystem APIs w/ Strict Subresource Integrity Emulation -->
+  <script src="https://accounts.google.com/gsi/client" async defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <!-- Google Services: Analytics & Ecosystem Identity -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMNIBRIDGE"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMNIBRIDGE" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
