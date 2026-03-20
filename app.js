@@ -1,3 +1,5 @@
+"use strict";
+
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 import { initializeApp } from "https://esm.run/firebase/app";
 import { getAnalytics } from "https://esm.run/firebase/analytics";
@@ -22,23 +24,29 @@ try {
   const db = getFirestore(app);
   const auth = getAuth(app);
 } catch (e) {
-  // Silent fallback for testing context where browser globals fail
+  console.warn("Silent fallback utilized for native non-browser testing context.");
 }
 
 /**
  * Service 2 Implementation: Google Identity Services Callback
- * Processes the JWT returned by Google Sign-In.
+ * Processes the JSON Web Token returned by Google Sign-In framework.
+ * 
+ * @async
+ * @function handleGoogleLogin
+ * @param {Object} response - The OAuth response from Google Identity Services.
+ * @param {string} response.credential - The encoded JWT ID token.
+ * @returns {void} Updates the DOM to visually confirm authentication.
  */
 window.handleGoogleLogin = (response) => {
-  console.log("Encoded JWT ID token: " + response.credential);
+  console.info("Encoded JWT ID token: " + response.credential);
   const authGate = document.getElementById("authGate");
-  if(authGate) authGate.innerHTML = `<span style="color:#10b981; font-weight:600; padding:10px;">✓ Google Auth Secured</span>`;
+  if (authGate) authGate.innerHTML = `<span class="auth-success">✓ Google Auth Secured</span>`;
   alert("Google Identity Verification Successful! You may now run complex Gemini queries securely.");
 };
 
 /**
  * OmniBridge - Core Logic & Google Services Integration
- * Utilizes the official Google Gemini SDK to translate human intent directly via LLM.
+ * Bootstraps the UI listeners upon DOM initialization.
  */
 document.addEventListener("DOMContentLoaded", () => {
   const elements = {
@@ -69,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Simulate connection lag for UI UX
     for (const msg of statusMessages) {
       elements.statusText.innerText = msg;
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
 
     try {
@@ -90,6 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  /**
+   * UI State Manager: Transitions view from Intent Input to Processing State.
+   * 
+   * @function transitionToProcessing
+   * @returns {void} Directly manipulates DOM class lists.
+   */
   function transitionToProcessing() {
     elements.resultsContainer.innerHTML = "";
     elements.resultsContainer.classList.add("hidden");
@@ -100,14 +114,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /**
    * Google Services Intent Parser
-   * @param {string} query - The user's input phrase
+   * Generates a systemic pathway dynamically parsing constraints using Live Gemini AI.
+   * 
+   * @async
+   * @function bridgeIntentGoogleService
+   * @param {string} query - The pure human intent submitted by the user.
+   * @returns {Promise<Object>} Formally structured JSON payload with sequence actions.
+   * @throws {Error} Throws network or schema-parse errors if the LLM output is malformed.
    */
   async function bridgeIntentGoogleService(query) {
     const apiKey = elements.apiKeyInput.value.trim();
     
     // If no Google API key is provided, trigger the local model immediately for hackathon grading without breaking
     if (!apiKey) {
-      console.log("No explicit Gemini API provided; utilizing local offline heuristic ruleset.");
+      console.info("No explicit Gemini API provided; utilizing local offline heuristic ruleset.");
       return localMockFallback(query);
     }
 
@@ -134,7 +154,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return JSON.parse(cleanJson);
   }
 
-  // Local Offline Heuristic Matrix fallback (Guarantees uptime during grading)
+  /**
+   * Local Offline Heuristic Matrix
+   * Pre-calculated schema mapping bridging specific civic contexts.
+   * 
+   * @async
+   * @function localMockFallback
+   * @param {string} query - The submitted user query.
+   * @returns {Promise<Object>} Hardcoded systemic sequence actions based on query categorization.
+   */
   async function localMockFallback(query) {
     const qLower = query.toLowerCase();
     if (qLower.includes("business") || qLower.includes("taxes") || qLower.includes("llc")) {
@@ -170,6 +198,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  /**
+   * Primary Template Rendering Logic
+   * Injects securely parameterized intent results into the core HTML frame.
+   * 
+   * @function renderResults
+   * @param {Object} data - The standardized JSON framework defining bureaucratic processes.
+   * @returns {void}
+   */
   function renderResults(data) {
     elements.processingState.classList.add("hidden");
     elements.resultsContainer.classList.remove("hidden");
@@ -222,25 +258,25 @@ document.addEventListener("DOMContentLoaded", () => {
           <svg class="section-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
           Auto-Prepared Documents
         </h2>
-        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">Forms parameterized based on Google AI output.</p>
-        <div class="forms-list" style="margin-bottom: 1.5rem;">
+        <p class="map-desc">Forms parameterized based on Google AI output.</p>
+        <div class="forms-list spacing-bottom">
           ${formsHtml}
         </div>
 
         <!-- Service 4 Implementation: Google Maps Embed API -->
-        <h3 style="font-size: 1.1rem; color: #fff; margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem; margin-bottom: 0.5rem;">Jurisdictional Routing Map</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Calculated nearest civic center based on your Gemini-classified intent.</p>
+        <h3 class="map-title">Jurisdictional Routing Map</h3>
+        <p class="map-desc">Calculated nearest civic center based on your Gemini-classified intent.</p>
         <iframe
+          class="map-iframe"
           width="100%"
           height="200"
-          style="border:0; border-radius:12px; margin-top:10px; background: rgba(0,0,0,0.5);"
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
           src="https://www.google.com/maps/embed/v1/search?q=nearest+government+civil+office&key=AIzaSy_YOUR_LIVE_MAPS_KEY_HERE">
         </iframe>
 
-        <button style="margin-top: 1.5rem; width: 100%; border: 1px solid rgba(255,255,255,0.15);" class="primary-btn" onclick="location.reload()" aria-label="Start a new intent query">
+        <button class="primary-btn restart-btn" onclick="location.reload()" aria-label="Start a new intent query">
           Start New Search
         </button>
       </section>
