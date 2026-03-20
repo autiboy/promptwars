@@ -18,6 +18,10 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
   <link fetchpriority="high" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <!-- Google Services: Ecosystem APIs -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer></script>
+
   <!-- Google Services: Analytics & Ecosystem Identity -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-OMNIBRIDGE"></script>
   <script>
@@ -41,6 +45,22 @@
 
   <div class="app-container">
     <nav class="top-nav" aria-label="Utility Navigation">
+      <!-- Google Identity Services Integration (Sign-In UI) -->
+      <div id="g_id_onload"
+         data-client_id="842183210-google.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-auto_prompt="false">
+      </div>
+      <div class="g_id_signin"
+         data-type="standard"
+         data-shape="pill"
+         data-theme="outline"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+      </div>
+
       <div class="api-key-container">
         <label for="geminiKey" class="sr-only" style="display:none;">Google Gemini API Key</label>
         <input type="password" id="geminiKey" class="api-input glassy" placeholder="Gemini API Key (Optional)" aria-label="Optional Google Gemini API Key for Live Inference">

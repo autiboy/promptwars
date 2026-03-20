@@ -1,0 +1,17 @@
+steps:
+  # Install Google Services DevOps dependencies
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+  # Emulate Build logic
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'build']
+  # Build secure Google Cloud Container
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/omnibridge', '.']
+  # Push into Google Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/omnibridge']
+images:
+  - 'gcr.io/$PROJECT_ID/omnibridge'
+options:
+  logging: CLOUD_LOGGING_ONLY
