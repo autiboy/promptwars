@@ -20,11 +20,11 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Initialize Official GitHub CodeQL Security
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
       with:
         languages: javascript
 
     - name: Perform Heuristic Vulnerability Analysis
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
       with:
         category: "/language:javascript"
